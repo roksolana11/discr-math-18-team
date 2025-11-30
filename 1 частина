@@ -1,0 +1,58 @@
+import argparse
+
+def read_relations_from_matrix(pathname: str) -> list[tuple[int, int]]:
+    '''
+    Функція читає матрицю з файл.csv та виводить список пар
+    цього відношення
+    '''
+    with open(pathname, 'r', encoding='utf-8') as file:
+        relations = []
+        line = 0
+        column = 0
+        file.seek(0)
+        for row in file:
+            for ch in row:
+                if ch == '1':
+                    relations.append((line, column))
+                    column += 1
+                elif ch == '0':
+                    column += 1
+
+            line += 1
+            column = 0
+
+    return relations
+
+def check_vertices(relations: list) -> set:
+    '''
+    Перевіряє які вершини є у матриці
+    '''
+    result = set()
+
+    for a, b in relations:
+        result.add(a)
+        result.add(b)
+
+    return result
+
+def parse_arguments():
+    '''
+    Обробка аргументів командного рядка: стартова вершина A, кінцева B, step.
+    '''
+    parser = argparse.ArgumentParser(description="Пошук найкоротшого шляху")
+
+    parser.add_argument("A", type=int, help="Початкова вершина")
+    parser.add_argument("B", type=int, help="Кінцева вершина")
+    parser.add_argument("step", type=int, help="Крок алгоритму")
+
+    args = parser.parse_args()
+
+    if args.A < 0 or args.B < 0:
+        raise ValueError("A та B мають бути невід’ємними індексами вершин")
+
+    if args.step <= 0:
+        raise ValueError("step має бути > 0")
+
+    return args.A, args.B, args.step
+
+#перевірку чи А і В є у матриці зробиться у main, використовуючи check_vertices
