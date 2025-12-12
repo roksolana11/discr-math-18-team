@@ -21,24 +21,24 @@
     Основні частини програми:
     1. arguments_pars()
         Обробка аргументів командного рядка:
-        • file (str): Path to height map file
-        • start (str): Start point in "row,col" format
-        • end (str): End point in "row,col" format
-        • step (float): Horizontal distance between adjacent points
-        • animate (bool): Whether to create GIF animation
-        • visualise (bool): Whether to create PNG image
-        • output (str): Output filename (without extension)
-        • fps (int): Frames per second for animation
-    2. read_matrix(path)
+        • file (str): Path to height map file(Ввід і термінал:'-f', '--file'(обов'язкова команда))
+        • start (str): Start point in "row,col" format(Ввід і термінал:'-s', '--start'(обов'язкова команда))
+        • end (str): End point in "row,col" format(Ввід і термінал:'-e', '--end'(обов'язкова команда))
+        • step (float): Horizontal distance between adjacent points(Ввід і термінал:'--step'(за замовчуванням 1))
+        • animate (bool): Whether to create GIF animation(Ввід і термінал:'-a', '--animate'(опціональна команда))
+        • visualise (bool): Whether to create PNG image(Ввід і термінал:'-v', '--visualise'(опціональна команда))
+        • output (str): Output filename (without extension)(Ввід і термінал:'-o', '--output'(опціональна команда щоб задати назву, за замовчуванням result,                 вводиться без формату))
+        • fps (int): Frames per second for animation(Ввід і термінал:'--fps'(опціональна команда, кільсть кадрів за секунду))
+    3. read_matrix(path)
         Зчитування матриці висот із CSV-файлу. Врахування перешкод (якщо у матриці є
         символи -1, X, x, #, *. Перевірка існування файлу, доступу та чи символи у матриці у
         правильному форматі.
-    3. coords_pars(coord)
+    4. coords_pars(coord)
         Перетворення координат з формату "рядок,стовпець" у кортеж (row, col).
-    4. matrix_to_array(matrix)
+    5. matrix_to_array(matrix)
         Конвертування матриці зі значеннями None у масив numpy за допомогою np.nan.
         Використовується для візуалізації matplotlib, яка не може обробляти значення None.
-    5. dijkstra(matrix, start, end, step, record_frames)
+    6. dijkstra(matrix, start, end, step, record_frames)
         Реалізація алгоритму Дейкстри для пошуку найкоротшої траєкторії. Якщо
         record_frames=True, зберігається кадр для анімації у момент перевірки вершини
         алгоритмом. шлях будується, починаючи від точки end, рухаючись за таблицею
@@ -46,7 +46,7 @@
         відновити маршрут неможливо. Функція перевіряє порожню матрицю, стартову та
         фінішну точки на наявність перешкод, випадок, коли старт і фініш збігаються,
         недосяжність фінішу (відсутність шляху).
-    6. create_visualisation(matrix, start, end, path, distance, output_path)
+    7. create_visualisation(matrix, start, end, path, distance, output_path)
         Функція призначена для побудови статичного PNG-зображення із результатами
         роботи алгоритму пошуку шляху.
         Вона відображає:
@@ -57,7 +57,7 @@
         • інформацію про дистанцію та кількість кроків.
         • Старт — зелений кружок з чорним контуром.
         • Фініш — червоний кружок з чорним контуром.
-    7. create_search_animation(matrix, start, end, step, output_path, fps, show_live)
+    8. create_search_animation(matrix, start, end, step, output_path, fps, show_live)
         Функція призначена для побудови анімованої візуалізації роботи алгоритму пошуку
         найкоротшого шляху (Дейкстри) на двовимірній сітці висот.
         Результатом роботи є GIF-анімація, яка показує покроковий процес обходу графа,
@@ -66,15 +66,15 @@
         • клітинками, які знаходяться у черзі (queue),
         • поточною клітинкою (current),
         • фінальним відновленим шляхом (path).
-    8. validate_matrix(matrix)
+    9. validate_matrix(matrix)
         Функція використовується для перевірки коректності вхідної матриці, яка подається на
         подальшу обробку. Її головна мета — гарантувати, що матриця має правильну форму:
         • не є порожньою,
         • має непорожній перший рядок,
         • усі рядки мають однакову кількість стовпців.
-    9. validate_coordinates(coord, rows, cols, name)
+    10. validate_coordinates(coord, rows, cols, name)
         Перевіряє чи кординати невід’ємні та чи вони не виходять за межі матриці
-    10. main()
+    11. main()
         Основна функція, яка об'єднує всі частини.
 4. Алгоритм роботи програми
     1. Отримання параметрів.
